@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Earthquake Safety</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#resim {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+}
+
+#sesButonu {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: white;
+    border: 0;
+    border-radius: 12px;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 10;
+}
+</style>
+</head>
+
+<body>
+
+<img
+    id="resim"
+    src="IMG_20260922_154626.jpg"
+    alt="Earthquake Safety"
+>
+
+<audio
+    id="ses"
+    src="earthquake_e6ed6031%20(1).mp3"
+    preload="auto">
+</audio>
+
+<button id="sesButonu">🔊 SESİ BAŞLAT</button>
+
+<script>
+
+const ses = document.getElementById("ses");
+const buton = document.getElementById("sesButonu");
+
+function sesiBaslat() {
+
+    ses.currentTime = 0;
+
+    ses.play()
+    .then(() => {
+        buton.style.display = "none";
+    })
+    .catch(() => {
+        buton.style.display = "block";
+    });
+}
+
+/* Sayfa açılır açılmaz sesi dene */
+window.addEventListener("load", function() {
+    sesiBaslat();
+});
+
+/* Butona basılırsa ses kesin olarak başlar */
+buton.addEventListener("click", function() {
+    sesiBaslat();
+});
+
+/* Ekrana dokunulursa sesi başlat */
+document.addEventListener("pointerdown", function() {
+    if (ses.paused) {
+        sesiBaslat();
+    }
+}, { once: true });
+
+</script>
+
+</body>
+</html>
